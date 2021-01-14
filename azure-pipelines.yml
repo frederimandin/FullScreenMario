@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- master
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -15,8 +15,12 @@ steps:
     rootFolderOrFile: '$(build.sourcesDirectory)'
     includeRootFolder: false
 - task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Connect-azure'
     appName: 'mario-test-fred'
-    package: $(System.DefaultWorkingDirectory)/**/*.zip
+    package: $(Build.ArtifactStagingDirectory)/**/*.zip
