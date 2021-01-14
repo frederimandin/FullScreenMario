@@ -15,3 +15,8 @@ steps:
     rootFolderOrFile: '$(build.sourcesDirectory)'
     includeRootFolder: false
 - task: PublishBuildArtifacts@1
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure-connect'
+    appName: 'mario-test-fred'
+    package: $(System.DefaultWorkingDirectory)/**/*.zip
